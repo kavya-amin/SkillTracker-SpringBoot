@@ -47,21 +47,6 @@ public class SkillsRestController
 	@Autowired
 	RestTemplate restTemplate;
 	 
-	 @PostMapping("/profile/uploadpicture")
-	 public ResponseEntity < String > handleFileUpload(@RequestParam("file") MultipartFile file) 
-	 {
-	  String message = "";
-	  try {
-	   System.out.println("File uploaded: "+file);
-	   fileservice.store(file);
-	   message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-	   System.out.println(message);
-	   return ResponseEntity.status(HttpStatus.OK).body(message);
-	  } catch (Exception e) {
-	   message = "Fail to upload Profile Picture" + file.getOriginalFilename() + "!";
-	   return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
-	  }
-	 }	
 	 
 	@RequestMapping(method = RequestMethod.POST, value = "/saveAssociateSkill/{associateId}/{skillId}")
 	 public AssociateSkills saveAssociateSkills(@PathVariable(value="associateId") int associateId,
@@ -85,18 +70,11 @@ public class SkillsRestController
 		return service.findUserById(id);
 	}
 	
-	/** 
-	 @RequestMapping(method = RequestMethod.POST, value = "/saveAssociateSkill")
-	 public AssociateSkills saveAssociateSkills(@RequestBody AssociateSkills skills) {
-		 System.out.println(skills);
-		 test.create(skills);
-		 return skills;
-	 }**/
 	 
 	@RequestMapping("/associate/{id}")
-	public void getAssociate(@PathVariable("id") int id) {
+	public AssociateInfo getAssociate(@PathVariable("id") int id) {
 		System.out.println("url hit");
-		service.getAssociate(id);
+		return service.getAssociate(id);
 	}
 	
 	@RequestMapping("/name/{associateFirstName}")
@@ -149,10 +127,10 @@ public class SkillsRestController
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/saveAssociate")
-	public void saveAssociate(@RequestBody AssociateInfo associate) 
+	public AssociateInfo saveAssociate(@RequestBody AssociateInfo associate) 
 	{
 		System.out.println(associate);
-		 service.saveAssociate(associate);
+		 return service.saveAssociate(associate);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/deleteAssociate/{email}")

@@ -25,4 +25,5 @@ public interface AssociateInfoRepository extends CrudRepository<AssociateInfo, I
 	public Optional<AssociateInfo> findByAssociateFirstName(String name);
 	public List<AssociateInfo> findByCountryAndLocation(String country, String location);
 	public AssociateInfo findByAssociateEmail(String s);
+	public AssociateInfo findById(int id);
 }

@@ -45,13 +45,13 @@ public class HRLoginControllerTest {
 
 	@Test
 	public void verifyAllHRList() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/hrDetails/all").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/hrDetails/all").accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$", hasSize(1))).andDo(print()).andExpect(status().isOk());
 	}
 
 	@Test
 	public void verifyHRById() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/HR/1").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/HR/1").accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").exists()).andExpect(jsonPath("$.userEmail").exists())
 				.andExpect(jsonPath("$.userPassword").exists()).andExpect(jsonPath("$.securityQuestion").exists())
 				.andExpect(jsonPath("$.securityAnswer").exists()).andExpect(jsonPath("$.bcryptPass").exists())
@@ -65,13 +65,13 @@ public class HRLoginControllerTest {
 
 	@Test
 	public void verifySaveHR() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/create-hr/").contentType(MediaType.APPLICATION_JSON).content(
-				"{\"userEmail\" : \"kavya@gmail.com\", \"userPassword\" : \"12345\" , \"securityQuestion\" : \"abcd\", \"securityAnswer\" : \"bcdf\", \"bcryptPass\" : \"aaa\"}")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/create-hr/").contentType(MediaType.APPLICATION_JSON).content(
+				"{\"userEmail\" : \"kavyapoojary@gmail.com\", \"userPassword\" : \"12345\" , \"securityQuestion\" : \"abcd\", \"securityAnswer\" : \"bcdf\", \"bcryptPass\" : \"aaa\"}")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.id").exists())
 				.andExpect(jsonPath("$.userEmail").exists()).andExpect(jsonPath("$.userPassword").exists())
 				.andExpect(jsonPath("$.securityQuestion").exists()).andExpect(jsonPath("$.securityAnswer").exists())
 				.andExpect(jsonPath("$.bcryptPass").exists())
-				.andExpect(jsonPath("$.userEmail").value("kavya@gmail.com"))
+				.andExpect(jsonPath("$.userEmail").value("kavyapoojary@gmail.com"))
 				.andExpect(jsonPath("$.userPassword").value("12345"))
 				.andExpect(jsonPath("$.securityQuestion").value("abcd"))
 				.andExpect(jsonPath("$.securityAnswer").value("bcdf")).andExpect(jsonPath("$.bcryptPass").value("aaa"))
@@ -79,11 +79,18 @@ public class HRLoginControllerTest {
 	}
 
 	@Test
-	public void verifyUpdateToDo() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.patch("/updateHR/").contentType(MediaType.APPLICATION_JSON).content(
-				"{\"id\": \"2\",\"userEmail\" : \"kavya@gmail.com\", \"userPassword\" : \"1234\" , \"securityQuestion\" : \"abcd\", \"securityAnswer\" : \"abcd\", \"bcryptPass\" : \"aaa\"}")
-				.accept(MediaType.APPLICATION_JSON))
-		.andDo(print());
+	public void verifyUpdateHR() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.patch("/api/updateHR/").contentType(MediaType.APPLICATION_JSON).content(
+				"{\"id\": \"2\",\"userEmail\" : \"kavya1234@gmail.com\", \"userPassword\" : \"1234\" , \"securityQuestion\" : \"abcd\", \"securityAnswer\" : \"abcd\", \"bcryptPass\" : \"aaa\"}")
+				.accept(MediaType.APPLICATION_JSON)).andDo(print());
+	}
+
+	@Test
+	public void verifyHR() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/login/").contentType(MediaType.APPLICATION_JSON)
+				.content("{\"userEmail\" : \"kavyapoojary989@gmail.com\", \"userPassword\" : \"1234\"}")
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.userEmail").value("kavyapoojary989@gmail.com"))
+				.andDo(print());
 	}
 
 }

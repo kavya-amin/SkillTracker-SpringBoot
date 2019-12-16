@@ -45,10 +45,10 @@ public class SkillsDao
 	
 
 
-	public void getAssociateInfo(int id)
+	public AssociateInfo getAssociateInfo(int id)
 	{
 		System.out.println("In skills dao");
-		 skillsRepo.findById(id);
+		 return skillsRepo.findById(id);
 	}
 	
 	public AssociateInfo findByUserId(int associateId) {
@@ -130,18 +130,18 @@ public class SkillsDao
 	}
 	
 	@Transactional
-	public void saveAssociate(AssociateInfo associate) {
+	public AssociateInfo saveAssociate(AssociateInfo associate) {
 		
 	
 		
-		String password= UUID.randomUUID().toString();
-		System.out.println(password);
-		String arr[]=password.trim().split("-");
-		System.out.println(arr[0]);
-		mailService.sendEmail(associate.getAssociateEmail(), arr[0]);
-		associate.setPassword(bCryptPasswordEncoder.encode(arr[0]));
-		System.out.print(associate.getPassword());
-		skillsRepo.save(associate);
+		//String password= UUID.randomUUID().toString();
+		//System.out.println(password);
+		//String arr[]=password.trim().split("-");
+		//System.out.println(arr[0]);
+		//mailService.sendEmail(associate.getAssociateEmail(), arr[0]);
+		//associate.setPassword(bCryptPasswordEncoder.encode(arr[0]));
+		//System.out.print(associate.getPassword());
+		return skillsRepo.save(associate);
 		
 	
 	

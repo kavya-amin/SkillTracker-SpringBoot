@@ -32,12 +32,12 @@ public class HrServiceApplication {
 		SpringApplication.run(HrServiceApplication.class, args);
 	}
 	
-	/*@Bean
+	@Bean
 	public CommandLineRunner setup(HRLoginRepository hrLoginRepository) {
 		return (args) -> {
 			hrLoginRepository.save(new HR("kavyapoojary989@gmail.com","1234","abcd","abcd","aaa"));
 			logger.info("The sample data has been generated");
 		};
-	}*/
+	}
 
 }

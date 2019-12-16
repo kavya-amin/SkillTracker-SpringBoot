@@ -29,9 +29,9 @@ public class SkillsService
 	}
     
     
-	public void getAssociate(int id)
+	public AssociateInfo getAssociate(int id)
 	{
-		 sd.getAssociateInfo(id);
+		return  sd.getAssociateInfo(id);
 	}
 
 	public void getSkillInfo(int id)
@@ -83,8 +83,8 @@ public class SkillsService
 		return sd.deleteAssociatesSkillsByAid(id);
 	}
 
-	public void saveAssociate(AssociateInfo associate) {
-		sd.saveAssociate(associate);
+	public AssociateInfo saveAssociate(AssociateInfo associate) {
+		return sd.saveAssociate(associate);
 	}
 
 	public SkillsInfo saveSkills(SkillsInfo skillInfo) {
